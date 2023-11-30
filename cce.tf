@@ -11,6 +11,7 @@ resource "flexibleengine_cce_cluster_v3" "flask_cluster"{
 resource "flexibleengine_cce_node_v3" "node_1" {
   cluster_id        = flexibleengine_cce_cluster_v3.flask_cluster.id
   name              = "flask-node1"
+  os                = "CentOS 7.7"
   flavor_id         = var.flavor_id
   availability_zone = var.availability_zone
   key_pair          = var.ssh_key
@@ -30,6 +31,7 @@ resource "flexibleengine_cce_node_v3" "node_1" {
 resource "flexibleengine_cce_node_v3" "node_2" {
   cluster_id        = flexibleengine_cce_cluster_v3.flask_cluster.id
   name              = "flask-node2"
+  os                = "CentOS 7.7"
   flavor_id         = var.flavor_id
   availability_zone = var.availability_zone
   key_pair          = var.ssh_key
