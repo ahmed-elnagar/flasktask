@@ -1,0 +1,13 @@
+.gitattributes
+.gitignore
+.gitlab-ci.yml
+cce.tf
+ECS-workstation.tf
+flask-keypair.pem
+network.tf
+provider.tf
+README.md
+terraform.exe
+terraform.tfstate
+terraform.tfstate.backup
+varaiables.tf
