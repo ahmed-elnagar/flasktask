@@ -10,6 +10,16 @@ resource "flexibleengine_vpc_subnet_v1" "flask_subnet" {
   dns_list  = ["100.125.0.41","100.126.0.41"]
   vpc_id     = flexibleengine_vpc_v1.flask_vpc.id
 }
+resource "flexibleengine_vpc_eip" "eip_k8s" {
+  publicip {
+    type = "5_bgp"
+  }
+  bandwidth {
+    name       = "eip_k8s"
+    size       = 10
+    share_type = "PER"
+  }
+}
 resource "flexibleengine_networking_secgroup_v2" "workstation_secgroup" {
   name        = "workstation_secgroup"
   description = "Work station Sec group"
