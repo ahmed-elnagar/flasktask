@@ -1,4 +1,9 @@
+stages:
+  - build
+  - deploy
+
 build_image:
+  stage: build
   image: docker:20.10.16
   services:
     - docker:20.10.16-dind
@@ -8,4 +13,16 @@ build_image:
     - docker login -u eu-west-0_Ahmed_ElNaggar@CZLN0C8PK2I2FOZ7DO1Z -p 46312b6e3b9ca543122893c58eb29e048c8bbad34cc155e83e8538aa92bbe70e registry.eu-west-0.prod-cloud-ocb.orange-business.com
   script: 
     - docker build -t flask-app:v1.0 .
-    - docker push flask-app:v1.0 registry.eu-west-0.prod-cloud-ocb.orange-business.com
+    - docker tag flask-app:v1.0 registry.eu-west-0.prod-cloud-ocb.orange-business.com/myapp/flask-app:v1.0
+    - docker push registry.eu-west-0.prod-cloud-ocb.orange-business.com/myapp/flask-app:v1.0
+deploy_to_cluster:
+  stage: deploy
+  image: bitnami/kubectl:latest
+  script:
+    # Configure the kubeconfig file.
+    - mkdir -p $HOME/.kube
+    - export KUBECONFIG=$HOME/.kube/config
+    - echo $kube_config |base64 -d > $KUBECONFIG
+    - cat deployment.yaml
+    # Deploy an application.
+    - kubectl apply -f deployment.yaml

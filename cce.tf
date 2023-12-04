@@ -7,6 +7,7 @@ resource "flexibleengine_cce_cluster_v3" "flask_cluster"{
     vpc_id                 = flexibleengine_vpc_v1.flask_vpc.id
     subnet_id              = flexibleengine_vpc_subnet_v1.flask_subnet.id
     container_network_type = "overlay_l2"
+  #  cluster_eip            = ["eip_k8s"]
 }
 resource "flexibleengine_cce_node_v3" "node_1" {
   cluster_id        = flexibleengine_cce_cluster_v3.flask_cluster.id
@@ -48,3 +49,24 @@ resource "flexibleengine_cce_node_v3" "node_2" {
     volumetype = "SATA"
   }
 }
+/*resource "flexibleengine_cce_node_v3" "node_3" {
+  cluster_id        = flexibleengine_cce_cluster_v3.flask_cluster.id
+  name              = "flask-node3"
+  os                = "CentOS 7.7"
+  flavor_id         = var.flavor_id
+  availability_zone = var.availability_zone
+  key_pair          = var.ssh_key
+  iptype            = "5_bgp"
+  sharetype         = "PER"
+  bandwidth_size    = 100
+
+  root_volume {
+    size       = 40
+    volumetype = "SATA"
+  }
+    data_volumes {
+    size       = 100
+    volumetype = "SATA"
+  }
+}
+*/
